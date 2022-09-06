@@ -8,7 +8,7 @@ import { SubjectlistComponent } from './subjectlist/subjectlist.component';
 import { StudentsComponent } from './students/students.component';
 import { StudentService } from './students/student.service';
 import { RouterModule, Routes } from '@angular/router';
-
+import { HttpClientModule } from '@angular/common/http';
 const routes: Routes = [
   {path: '', redirectTo: '/students', pathMatch: 'full'},
   {path: 'students', component: StudentsComponent},
@@ -25,6 +25,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(routes)
   ],
   providers: [StudentService],
