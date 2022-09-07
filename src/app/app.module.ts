@@ -9,10 +9,15 @@ import { StudentsComponent } from './students/students.component';
 import { StudentService } from './students/student.service';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { FormComponent } from './students/form.component';
+import { FormsModule } from '@angular/forms';
+
 const routes: Routes = [
   {path: '', redirectTo: '/students', pathMatch: 'full'},
   {path: 'students', component: StudentsComponent},
   {path: 'footer', component: FooterComponent},
+  {path: 'students/form', component: FormComponent}
+
 ];
 
 @NgModule({
@@ -21,11 +26,13 @@ const routes: Routes = [
     NavbarComponent,
     FooterComponent,
     SubjectlistComponent,
-    StudentsComponent
+    StudentsComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     RouterModule.forRoot(routes)
   ],
   providers: [StudentService],
