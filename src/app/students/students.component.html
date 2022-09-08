@@ -1,5 +1,8 @@
 <div class="card border-primary text-center">
     <div class="card-header">Alumnos</div>
+    <div class="my-2 text-left">
+        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/students/form']">Agregar alumnos</button>
+    </div>
     <div class="card-body text-primary">
         <table class="table table-dark table-striped">
             <thead>
@@ -19,8 +22,5 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <div class="my-2 text-left">
-        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/students/form']">Agregar alumnos</button>
     </div>
 </div>
