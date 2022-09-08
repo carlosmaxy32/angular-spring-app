@@ -12,6 +12,7 @@
                     <th>Apellido</th>
                     <th>Correo electrónico</th>
                     <th>Editar</th>
+                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,7 +22,10 @@
                     <td>{{student.lastname}}</td>
                     <td>{{student.email}}</td>
                     <td>
-                        <button class="btn btn-light" type="button" name="button" [routerLink]="['/students/form', student.id]">Editar</button>
+                        <button class="btn btn-light btn-sm" type="button" name="editar" [routerLink]="['/students/form', student.id]">Editar</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" type="button" name="eliminar" (click)="delete(student)">Eliminar</button>
                     </td>
                 </tr>
             </tbody>

@@ -28,4 +28,8 @@ export class StudentService {
   update(student: Student): Observable<Student> {
     return this.http.put<Student>(`${this.urlEndPoint}/${student.id}`, student, {headers: this.httpHeaders})
   }
+
+  delete(id: number): Observable<Student> {
+    return this.http.delete<Student>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders})
+  }
 }
