@@ -11,6 +11,7 @@
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Correo electrónico</th>
+                    <th>Editar</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,6 +20,9 @@
                     <td>{{student.name}}</td>
                     <td>{{student.lastname}}</td>
                     <td>{{student.email}}</td>
+                    <td>
+                        <button class="btn btn-light" type="button" name="button" [routerLink]="['/students/form', student.id]">Editar</button>
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -20,4 +20,12 @@ export class StudentService {
   create(student: Student) : Observable<Student> {
     return this.http.post<Student>(this.urlEndPoint, student, {headers: this.httpHeaders})
   }
+
+  getStudent(id): Observable<Student> {
+    return this.http.get<Student>(`${this.urlEndPoint}/${id}`)
+  }
+
+  update(student: Student): Observable<Student> {
+    return this.http.put<Student>(`${this.urlEndPoint}/${student.id}`, student, {headers: this.httpHeaders})
+  }
 }
