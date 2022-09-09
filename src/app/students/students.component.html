@@ -4,7 +4,10 @@
         <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/students/form']">Agregar alumnos</button>
     </div>
     <div class="card-body text-primary">
-        <table class="table table-dark table-striped">
+        <div class="alert alert-info" *ngIf="listStudents?.length==0">
+            No hay registros en la base de datos
+        </div>
+        <table class="table table-dark table-striped" *ngIf="listStudents?.length>0">
             <thead>
                 <tr>
                     <th>ID</th>
