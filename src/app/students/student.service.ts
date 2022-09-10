@@ -23,6 +23,11 @@ export class StudentService {
     return this.http.post<Student>(this.urlEndPoint, student, {headers: this.httpHeaders}).pipe(
       map((response: any) => response.alumno as Student),
       catchError(e => {
+
+        if(e.status == 400) {
+          return throwError(e);
+        }
+
         console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
@@ -45,6 +50,11 @@ export class StudentService {
     return this.http.put<Student>(`${this.urlEndPoint}/${student.id}`, student, {headers: this.httpHeaders}).pipe(
       map((response: any) => response.alumno as Student),
       catchError(e => {
+
+        if(e.status == 400) {
+          return throwError(e);
+        }
+
         console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
