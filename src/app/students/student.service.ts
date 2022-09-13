@@ -6,6 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { formatDate } from '@angular/common';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +17,14 @@ export class StudentService {
   constructor(private http: HttpClient, private router:Router) { }
   getStudents(): Observable<Student[]> {
     return this.http.get(this.urlEndPoint).pipe(
-      map((response) => response as Student[])
+      map(response => {
+        let students = response as Student[];
+        return students.map( student => {
+          student.name = student.name.toUpperCase();
+          //student.createAt = formatDate(student.createAt, 'dd-MMM-yyyy', 'es-MX');
+          return student;
+        })
+      })
     );
   }
 

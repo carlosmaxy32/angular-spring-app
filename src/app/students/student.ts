@@ -3,5 +3,6 @@ export class Student {
     name:string;
     lastname:string;
     email:string;
+    createAt:string;
 }
 
