@@ -14,6 +14,9 @@ import { FormsModule } from '@angular/forms';
 import localeES from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { PaginatorComponent } from './paginator/paginator.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 registerLocaleData(localeES, 'es-MX');
 
@@ -35,12 +38,16 @@ const routes: Routes = [
     StudentsComponent,
     FormComponent,
     PaginatorComponent
+  
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatMomentDateModule
   ],
   providers: [StudentService, {provide: LOCALE_ID, useValue: 'es-MX' }],
   bootstrap: [AppComponent]
