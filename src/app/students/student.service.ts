@@ -3,7 +3,7 @@ import { STUDENTS } from './students.json';
 import { Student } from './student';
 import { of, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { formatDate } from '@angular/common';
@@ -13,17 +13,23 @@ import { formatDate } from '@angular/common';
 })
 export class StudentService {
   private urlEndPoint:string = "http://localhost:8080/api/students";
- private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   constructor(private http: HttpClient, private router:Router) { }
-  getStudents(): Observable<Student[]> {
-    return this.http.get(this.urlEndPoint).pipe(
-      map(response => {
-        let students = response as Student[];
-        return students.map( student => {
+  getStudents(page: number): Observable<any> {
+    return this.http.get(this.urlEndPoint+'/page/'+page).pipe(
+      tap((response:any)=>{
+        console.log('StudentService: tap 1');
+        (response.content as Student[]).forEach(student => {
+          console.log(student.name);
+        });
+      }),
+      map((response:any) => {         
+        (response.content as Student[]).map( student => {
           student.name = student.name.toUpperCase();
           //student.createAt = formatDate(student.createAt, 'dd-MMM-yyyy', 'es-MX');
           return student;
-        })
+        });
+        return response;
       })
     );
   }

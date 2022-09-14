@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { tap } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Student } from './student';
 import { StudentService } from './student.service';
@@ -8,14 +10,34 @@ import { StudentService } from './student.service';
 })
 export class StudentsComponent implements OnInit {
 
-  listStudents:Student[];
-  constructor(private studentsService: StudentService) { }
+  listStudents: Student[];
+  paginator: any;
+  constructor(private studentsService: StudentService, 
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.studentsService.getStudents().subscribe(
-      students =>this.listStudents = students
-    );
-  }
+    this.activatedRoute.paramMap.subscribe(params => {
+      let page:number = +params.get('page');
+
+      if(!page){
+        page = 0;
+      }
+
+      this.studentsService.getStudents(page)
+      .pipe(tap( response => {
+        console.log('StudentsComponent: tap 2');
+        (response.content as Student[]).forEach(student => {
+          console.log(student.name);
+        });
+      }))
+      .subscribe(
+        students => {
+          this.listStudents = students.content as Student[];
+          this.paginator = students;
+        }
+      );
+    }); 
+  } 
 
   public delete(student:Student): void {
     const swalWithBootstrapButtons = Swal.mixin({
