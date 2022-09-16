@@ -13,7 +13,7 @@ export class DetailComponent implements OnInit {
 
   student: Student;
   title:String = "Detalle del cliente";
-  private pictureSelect: File;
+  pictureSelect: File;
   constructor(private studentService: StudentService, private ativatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -30,14 +30,22 @@ export class DetailComponent implements OnInit {
   selectPicture(event) {
     this.pictureSelect = event.target.files[0];
     console.log(this.pictureSelect);
+    if(this.pictureSelect.type.indexOf('image')<0){
+      Swal.fire('¡Error al seleccionar la imagen!','El archivo debe ser del tipo imagen', 'error');
+    }
   }
 
   uploadPicture() {
-    this.studentService.uploadPicture(this.pictureSelect, this.student.id)
-    .subscribe( student => {
-      this.student=student;
-      Swal.fire('¡Imagen subida!',`La foto se ha subido con éxito: ${this.student.picture}`, 'success');
-    })
+    if (!this.pictureSelect) {
+      Swal.fire('¡Error al cargar la imagen!','Debes seleccionar una imagen', 'error');
+    } else {
+      this.studentService.uploadPicture(this.pictureSelect, this.student.id)
+      .subscribe( student => {
+        this.student=student;
+        Swal.fire('¡Imagen subida!',`La foto se ha subido con éxito: ${this.student.picture}`, 'success');
+      })
+    }
+    
   }
 
 }
