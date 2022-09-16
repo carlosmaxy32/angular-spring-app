@@ -21,7 +21,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let student of listStudents">
-                    <td>{{student.id}}</td>
+                    <td><button class="btn btn-success btn-sm" type="button" name="view" [routerLink]="['/students/view', student.id]">{{student.id}}</button></td>
                     <td>{{student.name}}</td>
                     <td>{{student.lastname}}</td>
                     <td>{{student.email}}</td>

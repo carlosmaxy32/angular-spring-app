@@ -4,5 +4,6 @@ export class Student {
     lastname:string;
     email:string;
     createAt:string;
+    picture:string;
 }
 

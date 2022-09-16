@@ -85,6 +85,20 @@ export class StudentService {
         Swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
       })
-    )
+    );
+  }
+
+  uploadPicture(file: File, id){
+      let formData = new FormData();
+      formData.append("file",file);
+      formData.append("id", id);
+      return this.http.post(`${this.urlEndPoint}/upload`,formData).pipe(
+        map((response: any) => response.student as Student),
+        catchError(e => {
+          console.error(e.error.mensaje);
+          Swal.fire(e.error.mensaje, e.error.error, 'error');
+          return throwError(e);
+        })
+      );
   }
 }
