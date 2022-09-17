@@ -27,8 +27,7 @@ const routes: Routes = [
   {path: 'students/page/:page', component: StudentsComponent},
   {path: 'footer', component: FooterComponent},
   {path: 'students/form', component: FormComponent},
-  {path: 'students/form/:id', component: FormComponent},
-  {path: 'students/view/:id', component: DetailComponent}
+  {path: 'students/form/:id', component: FormComponent}
 
 ];
 

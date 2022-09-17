@@ -1,9 +1,9 @@
 import { HttpEventType } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Student } from '../student';
 import { StudentService } from '../student.service';
+import { ModalService } from './modal.service';
 
 @Component({
   selector: 'app-detail-student',
@@ -12,21 +12,15 @@ import { StudentService } from '../student.service';
 })
 export class DetailComponent implements OnInit {
 
-  student: Student;
+  @Input() student: Student;
   title:String = "Detalle del cliente";
   pictureSelect: File;
   progress: number=0;
-  constructor(private studentService: StudentService, private ativatedRoute: ActivatedRoute) { }
+  constructor(private studentService: StudentService, 
+    public modalService: ModalService) { }
 
   ngOnInit(): void {
-    this.ativatedRoute.paramMap.subscribe(params =>{
-      let id:number = +params.get('id');
-      if(id){
-        this.studentService.getStudent(id).subscribe(student=>{
-          this.student=student;
-        });
-      }
-    });
+   
   }
 
   selectPicture(event) {
@@ -52,8 +46,13 @@ export class DetailComponent implements OnInit {
           Swal.fire('¡Imagen subida!',response.mensaje, 'success');
         }
       })
-    }
-    
+    }    
+  }
+
+  closeModal() {
+    this.modalService.closeModal();
+    this.pictureSelect = null;
+    this.progress = 0;
   }
 
 }

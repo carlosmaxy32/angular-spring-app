@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs';
 import Swal from 'sweetalert2';
+import { ModalService } from './detail/modal.service';
 import { Student } from './student';
 import { StudentService } from './student.service';
 @Component({
@@ -12,7 +13,9 @@ export class StudentsComponent implements OnInit {
 
   listStudents: Student[];
   paginator: any;
+  studentSelect: Student;
   constructor(private studentsService: StudentService, 
+    private modalService: ModalService, 
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -71,6 +74,11 @@ export class StudentsComponent implements OnInit {
         
       } 
     })
+  }
+
+  openModal(student: Student) {
+    this.studentSelect = student;
+    this.modalService.openModal();
   }
 
 }
