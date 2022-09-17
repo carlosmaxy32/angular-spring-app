@@ -40,6 +40,15 @@ export class StudentsComponent implements OnInit {
         }
       );
     }); 
+
+    this.modalService.notificarUpload.subscribe(student=> {
+      this.listStudents = this.listStudents.map( studentOriginal => {
+        if(student.id == studentOriginal.id) {
+          studentOriginal.picture = student.picture;
+        }
+        return studentOriginal;
+      })
+    })
   } 
 
   public delete(student:Student): void {

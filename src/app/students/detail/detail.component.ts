@@ -43,6 +43,8 @@ export class DetailComponent implements OnInit {
         } else if (event.type === HttpEventType.Response) {
           let response: any = event.body;
           this.student = response.student as Student;
+
+          this.modalService.notificarUpload.emit(this.student);
           Swal.fire('¡Imagen subida!',response.mensaje, 'success');
         }
       })
