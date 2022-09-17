@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { STUDENTS } from './students.json';
 import { Student } from './student';
 import { of, Observable, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -88,17 +88,15 @@ export class StudentService {
     );
   }
 
-  uploadPicture(file: File, id){
+  uploadPicture(file: File, id): Observable<HttpEvent<{}>>{
       let formData = new FormData();
       formData.append("file",file);
       formData.append("id", id);
-      return this.http.post(`${this.urlEndPoint}/upload`,formData).pipe(
-        map((response: any) => response.student as Student),
-        catchError(e => {
-          console.error(e.error.mensaje);
-          Swal.fire(e.error.mensaje, e.error.error, 'error');
-          return throwError(e);
-        })
-      );
+
+      const req = new HttpRequest('POST',`${this.urlEndPoint}/upload`,formData, {
+        reportProgress: true
+      } );
+
+      return this.http.request(req);;
   }
 }

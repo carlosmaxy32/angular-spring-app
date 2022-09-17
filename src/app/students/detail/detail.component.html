@@ -12,10 +12,17 @@
                         <li class="list-group-item">{{student.createAt | date:"fullDate"}}</li>
                     </ul>
 
-                    <div class="input-group">
+                    <div class="input-group mb-3">
                         <input (change)="selectPicture($event)" type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                         <button (click)="uploadPicture()" [disabled]="!pictureSelect" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Subir</button>
                     </div>
+
+                    <div *ngIf="progress > 0" class="progress" style="height: 30px">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" attr.aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width: progress+'%'}">
+                            {{progress}}%
+                        </div>
+                      </div>
+
                 </div>
                 <div class="col-sm">
                     <img *ngIf="student?.picture" src="http://localhost:8080/api/uploads/img/{{student.picture}}" alt="{{student.picture}}" class="img-thumbnail rounded">
