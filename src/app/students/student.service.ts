@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { STUDENTS } from './students.json';
+//import { STUDENTS } from './students.json';
 import { Student } from './student';
 import { of, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
@@ -7,6 +7,7 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { formatDate } from '@angular/common';
+import { Region } from './region';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,11 @@ export class StudentService {
   private urlEndPoint:string = "http://localhost:8080/api/students";
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   constructor(private http: HttpClient, private router:Router) { }
+
+  getRegiones(): Observable<Region[]> {
+    return this.http.get<Region[]>(this.urlEndPoint + '/regiones');
+  }
+
   getStudents(page: number): Observable<any> {
     return this.http.get(this.urlEndPoint+'/page/'+page).pipe(
       tap((response:any)=>{

@@ -1,3 +1,5 @@
+import { Region } from "./region";
+
 export class Student {
     id:number;
     name:string;
@@ -5,5 +7,6 @@ export class Student {
     email:string;
     createAt:string;
     picture:string;
+    region:Region;
 }
 

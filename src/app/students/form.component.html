@@ -60,6 +60,16 @@
             </div>
 
             <div class="form-group row">
+                <label for="region" class="col-form-label col-sm-2">Estado</label>
+                <div class="col-sm-6">
+                    <select [compareWith]="compareRegion" class="form-control form-select" [(ngModel)]="student.region" id="region" name="region" style="width:500px">      
+                        <option [ngValue]="undefined">--- seleccionar un estado ---</option>
+                        <option *ngFor="let region of regiones" [ngValue]="region">{{region.name}}</option>
+                    </select>              
+                </div>                
+            </div>
+
+            <div class="form-group row">
                 <div class="col-sm-6">
                     <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!student.id else elseBlock" [disabled]="!studentForm.form.valid">Crear</button>
                     <ng-template #elseBlock>

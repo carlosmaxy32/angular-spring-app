@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from './student';
 import { StudentService } from './student.service';
 import Swal from 'sweetalert2';
+import { Region } from './region';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -13,6 +14,8 @@ export class FormComponent implements OnInit {
   public student: Student = new Student();
   public title: string = "Crear Alumno"
   public errors: string[];
+  public regiones: Region[];
+
   constructor(private studentService: StudentService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
@@ -22,6 +25,7 @@ export class FormComponent implements OnInit {
   }
 
   public create(): void {
+    console.log(this.student)
     this.studentService.create(this.student).subscribe(
       student=> {
         this.router.navigate(['/students']);
@@ -41,10 +45,12 @@ export class FormComponent implements OnInit {
       if(id){
         this.studentService.getStudent(id).subscribe((student)=>this.student=student)
       }
-    })
+    });
+    this.studentService.getRegiones().subscribe(regiones => this.regiones = regiones)
   }
 
   public update() : void {
+    console.log(this.student)
     this.studentService.update(this.student).subscribe(student => {
       this.router.navigate(['/students']);
       Swal.fire('Estudiante actualizado', `Se actualizó al estudiante ${student.name} ${student.lastname} con éxito`,'success');
@@ -57,4 +63,10 @@ export class FormComponent implements OnInit {
     )
   }
 
+  public compareRegion(o1: Region, o2:Region) : boolean {
+    if (o1 === undefined && o2 === undefined){
+      return true;
+    }
+    return o1 === null || o2 == null || o1 === undefined || o2 == undefined ? false : o1.id == o2.id;
+  }
 }
