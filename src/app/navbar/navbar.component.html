@@ -11,22 +11,12 @@
           </li>
           <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" routerLink="/students">Estudiantes</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" routerLink="/footer">Footer</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
+          </li>          
           <app-subjectlist></app-subjectlist>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        <ul class="navbar-nav navbar-right">
+          <li><a class="btn btn-outline-primary" routerLink="/login">Sign In</a></li>
+        </ul>
       </div>
     </div>
   </nav>
