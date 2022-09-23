@@ -19,7 +19,7 @@
                                 <li class="list-group-item">{{student.region.name}}</li>
                             </ul>
         
-                            <div class="input-group mb-3">
+                            <div class="input-group mb-3" *ngIf="authService.hasRole('ROLE_ADMIN')">
                                 <input (change)="selectPicture($event)" type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                                 <button (click)="uploadPicture()" [disabled]="!pictureSelect" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Subir</button>
                             </div>

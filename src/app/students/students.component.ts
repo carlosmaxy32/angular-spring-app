@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs';
 import Swal from 'sweetalert2';
+import { AuthService } from '../users/auth.service';
 import { ModalService } from './detail/modal.service';
 import { Student } from './student';
 import { StudentService } from './student.service';
@@ -15,7 +16,8 @@ export class StudentsComponent implements OnInit {
   paginator: any;
   studentSelect: Student;
   constructor(private studentsService: StudentService, 
-    private modalService: ModalService, 
+    private modalService: ModalService,
+    public authService: AuthService, 
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {

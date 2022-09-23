@@ -1,5 +1,6 @@
 import { HttpEventType } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/users/auth.service';
 import Swal from 'sweetalert2';
 import { Student } from '../student';
 import { StudentService } from '../student.service';
@@ -17,6 +18,7 @@ export class DetailComponent implements OnInit {
   pictureSelect: File;
   progress: number=0;
   constructor(private studentService: StudentService, 
+    public authService: AuthService,
     public modalService: ModalService) { }
 
   ngOnInit(): void {

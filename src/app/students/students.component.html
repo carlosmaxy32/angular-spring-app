@@ -2,7 +2,7 @@
 <div class="card border-primary text-center">
     <div class="card-header">Alumnos</div>
     <div class="my-2 text-left">
-        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/students/form']">Agregar alumnos</button>
+        <button *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-rounded btn-primary" type="button" [routerLink]="['/students/form']">Agregar alumnos</button>
     </div>
     <div class="card-body text-primary">
         <div class="alert alert-info" *ngIf="listStudents?.length==0">
@@ -11,18 +11,18 @@
         <table class="table table-dark table-striped" *ngIf="listStudents?.length>0">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th *ngIf="authService.hasRole('ROLE_USER')">#</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Correo electrónico</th>
                     <th>Fecha creación</th>
-                    <th>Editar</th>
-                    <th>Eliminar</th>
+                    <th *ngIf="authService.hasRole('ROLE_ADMIN')">Editar</th>
+                    <th *ngIf="authService.hasRole('ROLE_ADMIN')">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let student of listStudents">
-                    <td> 
+                    <td *ngIf="authService.hasRole('ROLE_USER')"> 
                         <img *ngIf="student?.picture" src="http://localhost:8080/api/uploads/img/{{student.picture}}" alt="{{student.picture}}" class="img-thumbnail rounded" (click)="openModal(student)"
                         style="width: 64px; cursor: pointer">
                         <img *ngIf="!student?.picture" src="http://localhost:8080/images/user_icon.png" alt="Sin foto" class="img-thumbnail rounded" (click)="openModal(student)"
@@ -32,10 +32,10 @@
                     <td>{{student.lastname}}</td>
                     <td>{{student.email}}</td>
                     <td>{{student.createAt | date:"dd-MMM-yyyy"}}</td>
-                    <td>
+                    <td *ngIf="authService.hasRole('ROLE_ADMIN')">
                         <button class="btn btn-light btn-sm" type="button" name="editar" [routerLink]="['/students/form', student.id]">Editar</button>
                     </td>
-                    <td>
+                    <td *ngIf="authService.hasRole('ROLE_ADMIN')">
                         <button class="btn btn-danger btn-sm" type="button" name="eliminar" (click)="delete(student)">Eliminar</button>
                     </td>
                 </tr>
