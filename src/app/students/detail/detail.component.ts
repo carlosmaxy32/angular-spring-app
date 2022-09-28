@@ -14,7 +14,7 @@ import { ModalService } from './modal.service';
 export class DetailComponent implements OnInit {
 
   @Input() student: Student;
-  title:String = "Detalle del cliente";
+  title:String = "Detalle del estudiante";
   pictureSelect: File;
   progress: number=0;
   constructor(private studentService: StudentService, 

@@ -1,3 +1,4 @@
+import { Grade } from "../grades/models/grade";
 import { Region } from "./region";
 
 export class Student {
@@ -8,5 +9,6 @@ export class Student {
     createAt:string;
     picture:string;
     region:Region;
+    grades:Grade[] = [];
 }
 

@@ -35,6 +35,28 @@
                             <img *ngIf="student?.picture" src="http://localhost:8080/api/uploads/img/{{student.picture}}" alt="{{student.picture}}" class="img-thumbnail rounded">
                         </div>
                     </div>
+                    <div class="row">
+                      <div class="alert alert-info my-4" *ngIf="student.grades.length==0">
+                          No hay calificaciones para el estudiante {{student.name}} {{student.lastname}}.
+                      </div>
+
+                      <table class="table table-bordered table-striped my-4" *ngIf="student.grades.length>0">
+                        <thead>
+                          <tr>
+                            <th>Calendario</th>
+                            <th>Fecha creación</th>
+                            <th>Promedio</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let grade of student.grades">
+                            <td>{{grade.calendar}}</td>
+                            <td>{{grade.createAt}}</td>
+                            <td>{{grade.average}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
