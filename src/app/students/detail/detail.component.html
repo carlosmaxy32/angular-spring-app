@@ -46,6 +46,7 @@
                             <th>Calendario</th>
                             <th>Fecha creación</th>
                             <th>Promedio</th>
+                            <th>Detalle</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -53,6 +54,8 @@
                             <td>{{grade.calendar}}</td>
                             <td>{{grade.createAt}}</td>
                             <td>{{grade.average}}</td>
+                            <td><button class="btn btn-primary btn-sm" type="button"
+                              [routerLink]="['/grades', grade.id]"></button></td>
                           </tr>
                         </tbody>
                       </table>

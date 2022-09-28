@@ -22,7 +22,8 @@ import { LoginComponent } from './users/login.component';
 import { AuthGuard } from './users/guards/auth.guard';
 import { RoleGuard } from './users/guards/role.guard';
 import { TokenInterceptor } from './users/interceptors/token.interceptor'
-import { AuthInterceptor } from './users/interceptors/auth.interceptor'
+import { AuthInterceptor } from './users/interceptors/auth.interceptor';
+import { DetailGradeComponent } from './grades/detail-grade.component'
 
 registerLocaleData(localeES, 'es-MX');
 
@@ -33,7 +34,8 @@ const routes: Routes = [
   {path: 'footer', component: FooterComponent},
   {path: 'students/form', component: FormComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
   {path: 'students/form/:id', component: FormComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'grades/:id', component: DetailComponent}
 ];
 
 @NgModule({
@@ -46,7 +48,8 @@ const routes: Routes = [
     FormComponent,
     PaginatorComponent,
     DetailComponent,
-    LoginComponent
+    LoginComponent,
+    DetailGradeComponent
   
   ],
   imports: [
