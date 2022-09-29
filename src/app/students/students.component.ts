@@ -81,10 +81,10 @@ export class StudentsComponent implements OnInit {
               'success'
             )
           }
-        )
+        );
         
       } 
-    })
+    });
   }
 
   openModal(student: Student) {

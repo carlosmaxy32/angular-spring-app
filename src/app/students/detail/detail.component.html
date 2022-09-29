@@ -35,6 +35,10 @@
                             <img *ngIf="student?.picture" src="http://localhost:8080/api/uploads/img/{{student.picture}}" alt="{{student.picture}}" class="img-thumbnail rounded">
                         </div>
                     </div>
+                    <div class="row" *ngIf="authService.hasRole('ROLE_ADMIN')">
+                      <button class="btn btn-success btn-sm" type="button" name="editar" [routerLink]="['/grades/form', student.id]">Añadir calificación</button>
+                    </div>
+
                     <div class="row">
                       <div class="alert alert-info my-4" *ngIf="student.grades.length==0">
                           No hay calificaciones para el estudiante {{student.name}} {{student.lastname}}.
@@ -47,6 +51,7 @@
                             <th>Fecha creación</th>
                             <th>Promedio</th>
                             <th>Detalle</th>
+                            <th>Eliminar</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -56,6 +61,7 @@
                             <td>{{grade.average}}</td>
                             <td><button class="btn btn-primary btn-sm" type="button"
                               [routerLink]="['/grades', grade.id]">ver</button></td>
+                            <td><button class="btn btn-danger btn-sm" type="button" (click)="delete(grade)">eliminar</button></td>
                           </tr>
                         </tbody>
                       </table>

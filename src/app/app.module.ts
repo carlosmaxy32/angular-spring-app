@@ -10,7 +10,7 @@ import { StudentService } from './students/student.service';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormComponent } from './students/form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import localeES from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { PaginatorComponent } from './paginator/paginator.component';
@@ -23,7 +23,14 @@ import { AuthGuard } from './users/guards/auth.guard';
 import { RoleGuard } from './users/guards/role.guard';
 import { TokenInterceptor } from './users/interceptors/token.interceptor'
 import { AuthInterceptor } from './users/interceptors/auth.interceptor';
-import { DetailGradeComponent } from './grades/detail-grade.component'
+import { DetailGradeComponent } from './grades/detail-grade.component';
+import { GradesComponent } from './grades/grades.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+
+
 
 registerLocaleData(localeES, 'es-MX');
 
@@ -35,7 +42,8 @@ const routes: Routes = [
   {path: 'students/form', component: FormComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
   {path: 'students/form/:id', component: FormComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
   {path: 'login', component: LoginComponent},
-  {path: 'grades/:id', component: DetailGradeComponent}
+  {path: 'grades/:id', component: DetailGradeComponent},
+  {path: 'grades/form/:studentId', component: GradesComponent}
 ];
 
 @NgModule({
@@ -49,7 +57,8 @@ const routes: Routes = [
     PaginatorComponent,
     DetailComponent,
     LoginComponent,
-    DetailGradeComponent
+    DetailGradeComponent,
+    GradesComponent
   
   ],
   imports: [
@@ -59,7 +68,11 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [StudentService, 
     { provide: LOCALE_ID, useValue: 'es-MX' }, 
