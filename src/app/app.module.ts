@@ -35,7 +35,7 @@ const routes: Routes = [
   {path: 'students/form', component: FormComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
   {path: 'students/form/:id', component: FormComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
   {path: 'login', component: LoginComponent},
-  {path: 'grades/:id', component: DetailComponent}
+  {path: 'grades/:id', component: DetailGradeComponent}
 ];
 
 @NgModule({

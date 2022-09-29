@@ -1,1 +1,43 @@
-<p>detail-grade works!</p>
+<div class="card bg-light" *ngIf="grade">
+    <div class="card-header">{{title}}</div>
+    <div class="card-body">
+        <h4 class="card-title">
+            <a [routerLink]="['/students']" class="btn btn-light btn-xs"> &laquo; volver</a>
+        </h4>
+
+        <ul class="list-group my-2">
+            <li class="list-group-item list-group-item-primary">Alumno</li>
+            <li class="list-group-item">Nombre: {{grade.student.name}}</li>
+            <li class="list-group-item">Apellido: {{grade.student.lastname}}</li>
+        </ul>
+
+        <ul class="list-group my-2">
+            <li class="list-group-item list-group-item-primary">Detalle</li>
+            <li class="list-group-item">Calendario: {{grade.calendar}}</li>
+            <li class="list-group-item">Fecha de creación: {{grade.createAt}}</li>
+            <li class="list-group-item">Materias registradas: {{grade.item_grades.length}}</li>
+            <li class="list-group-item">Materias aprobadas: {{getTotalApprovedSubject()}}</li>
+            <li class="list-group-item">Materias reprobadas: {{getTotalFailedSubject()}}</li>
+            <li class="list-group-item list-group-item-success">Promedio: {{grade.average.toFixed(2)}}</li>
+        </ul>
+
+        <table class="table table-dark table-striped table-hover table-bordered my-3">
+            <thead>
+                <tr>
+                    <th>Folio Materia</th>
+                    <th>Asignatura</th>
+                    <th>Calificación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of grade.item_grades">
+                    <td>{{item.subject.id}}</td>
+                    <td>{{item.subject.name}}</td>
+                    <td *ngIf="item.score>=60">{{item.score}}</td>
+                    <td *ngIf="item.score<60" class="table-danger text-danger">{{item.score}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
