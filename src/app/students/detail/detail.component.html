@@ -57,8 +57,8 @@
                         <tbody>
                           <tr *ngFor="let grade of student.grades">
                             <td>{{grade.calendar}}</td>
-                            <td>{{grade.createAt}}</td>
-                            <td>{{grade.average}}</td>
+                            <td>{{grade.createAt | date:"dd-MMM-yyyy"}}</td>
+                            <td>{{grade.average.toFixed(2)}}</td>
                             <td><button class="btn btn-primary btn-sm" type="button"
                               [routerLink]="['/grades', grade.id]">ver</button></td>
                             <td><button class="btn btn-danger btn-sm" type="button" (click)="delete(grade)">eliminar</button></td>

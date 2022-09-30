@@ -29,18 +29,42 @@
                                matInput
                                [formControl]="autoCompleteControl"
                                [matAutocomplete]="auto">
-                        <mat-autocomplete #auto="matAutocomplete">
-                          <mat-option *ngFor="let option of filteredSubjects | async" [value]="option">
-                            {{option}}
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="showName" (optionSelected)="selectedSubject($event)" >
+                          <mat-option *ngFor="let subject of filteredSubjects | async" [value]="subject">
+                            {{subject.name}}
                           </mat-option>
                         </mat-autocomplete>
                       </mat-form-field>
                 </div>
             </div>
-            
+
+            <div class="alert alert-info my-4" *ngIf="grade.item_grades.length==0">
+                No hay materias seleccionadas. Seleccionar al menos una.
+            </div>
+
+            <table class="table table-striped table-hover table-sm" *ngIf="grade.item_grades.length>0">
+                <thead>
+                    <tr>
+                        <th>Folio</th>
+                        <th>Asignatura</th>
+                        <th>Calificación</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of grade.item_grades">
+                        <td>{{item.subject.id}}</td>
+                        <td>{{item.subject.name}}</td>
+                        <td> <input type="number" value="{{item.score}}" class="form-control col-sm-4" (change)="updateScore(item.subject.id, $event)"> </td>
+                        <td><button class="btn btn-danger btn-sm" type="button"
+                             (click)="deleteItemGrade(item.subject.id)">x</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <input type="submit" value="Crear" class="btn btn-secondary">
+                    <input type="submit" (click)="create()" value="Crear" class="btn btn-secondary">
                 </div>
             </div>
 
