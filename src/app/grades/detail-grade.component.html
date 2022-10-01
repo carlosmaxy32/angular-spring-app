@@ -18,7 +18,8 @@
             <li class="list-group-item">Materias registradas: {{grade.item_grades.length}}</li>
             <li class="list-group-item">Materias aprobadas: {{getTotalApprovedSubject()}}</li>
             <li class="list-group-item">Materias reprobadas: {{getTotalFailedSubject()}}</li>
-            <li class="list-group-item list-group-item-success">Promedio: {{grade.average.toFixed(2)}}</li>
+            <li class="list-group-item list-group-item-success" *ngIf="grade.average >= 60"> Promedio: {{grade.average.toFixed(2)}}</li>
+            <li class="list-group-item list-group-item-danger" *ngIf="grade.average < 60"> Promedio: {{grade.average.toFixed(2)}}</li>
         </ul>
 
         <table class="table table-dark table-striped table-hover table-bordered my-3">

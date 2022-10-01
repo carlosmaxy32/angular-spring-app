@@ -51,6 +51,7 @@ export class FormComponent implements OnInit {
 
   public update() : void {
     console.log(this.student)
+    this.student.grades = null;
     this.studentService.update(this.student).subscribe(student => {
       this.router.navigate(['/students']);
       Swal.fire('Estudiante actualizado', `Se actualizó al estudiante ${student.name} ${student.lastname} con éxito`,'success');

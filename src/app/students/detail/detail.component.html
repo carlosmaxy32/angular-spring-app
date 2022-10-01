@@ -51,7 +51,7 @@
                             <th>Fecha creación</th>
                             <th>Promedio</th>
                             <th>Detalle</th>
-                            <th>Eliminar</th>
+                            <th *ngIf="authService.hasRole('ROLE_ADMIN')">Eliminar</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -61,7 +61,7 @@
                             <td>{{grade.average.toFixed(2)}}</td>
                             <td><button class="btn btn-primary btn-sm" type="button"
                               [routerLink]="['/grades', grade.id]">ver</button></td>
-                            <td><button class="btn btn-danger btn-sm" type="button" (click)="delete(grade)">eliminar</button></td>
+                            <td *ngIf="authService.hasRole('ROLE_ADMIN')"><button class="btn btn-danger btn-sm" type="button" (click)="delete(grade)">eliminar</button></td>
                           </tr>
                         </tbody>
                       </table>
