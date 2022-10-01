@@ -11,6 +11,7 @@ import { __values } from 'tslib';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ItemGrade } from './models/item-grade';
 import Swal from 'sweetalert2';
+import { Student } from '../students/student';
 
 @Component({
   selector: 'app-grades',
@@ -90,12 +91,31 @@ export class GradesComponent implements OnInit {
     this.grade.item_grades = this.grade.item_grades.filter((item: ItemGrade) => id !== item.subject.id);
   }
 
-  create():void {
+  create(gradeForm):void {
     console.log(this.grade);
-    this.gradeService.create(this.grade).subscribe(grade => {
-      Swal.fire(this.title, `Las nuevas calificaciones del calendario ${grade.calendar} creadas con éxito`, 'success');
-      this.router.navigate(['/students']);
-    })
+    if(this.grade.item_grades.length == 0){
+      this.autoCompleteControl.setErrors({'invalid': true});
+    }
+    if(gradeForm.form.valid && this.grade.item_grades.length > 0) {
+      this.grade.calendar = this.grade.calendar.toUpperCase();
+      if (this.existCalendar(this.grade.student)) {
+        return;
+      }
+      this.gradeService.create(this.grade).subscribe(grade => {
+        Swal.fire(this.title, `Las nuevas calificaciones del calendario ${grade.calendar} creadas con éxito`, 'success');
+        this.router.navigate(['/students']);
+      });
+    }
+  }
+
+  existCalendar(student: Student): boolean {
+    for(let i = 0; i<student.grades.length; i++) {
+      if(this.grade.calendar == student.grades[i].calendar) {
+        Swal.fire('Error al crear calificaaión', `El estudiante ${student.name} ${student.lastname} ya cuenta con calificación para el calendario ${this.grade.calendar}, favor de añadir otro calendario o editar ya el existente`, 'error');
+        return true;
+      }
+    }
+    return false;
   }
 
 }

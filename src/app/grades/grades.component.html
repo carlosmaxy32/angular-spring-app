@@ -4,7 +4,7 @@
         <h4 class="card-title">
             <a [routerLink]="['/students']" class="btn btn-light btn-xs"> &laquo; volver</a>
         </h4>
-        <form>
+        <form #gradeForm="ngForm">
             <div class="form-group row" *ngIf="grade.student">
                 <label for="estudiante" class="col-sm-2 col-form-label">Estudiante: </label>
                 <div class="col-sm-6">
@@ -15,7 +15,12 @@
             <div class="form-group row">
                 <label for="calendario" class="col-sm-2 col-form-label">Calendario: </label>
                 <div class="col-sm-6">
-                    <input type="text" name="calendario" [(ngModel)]="grade.calendar" class="form-control" id="calendario">
+                    <input type="text" name="calendario" [(ngModel)]="grade.calendar" class="form-control" id="calendario" required #calendar="ngModel" pattern="[0-9]{4}[a-bA-B]">
+                    <div class="alert alert-danger" *ngIf="calendar.invalid && calendar.touched || calendar.invalid && gradeForm.submitted">
+                        El calendario es requerido. <br>
+                        El formato del calendario debe ser 4 digitos y una letra (A - B). Ejemplo: "2010A" o "2010B"
+                    </div>
+
                 </div>
             </div>
 
@@ -35,6 +40,9 @@
                           </mat-option>
                         </mat-autocomplete>
                       </mat-form-field>
+                      <div class="alert alert-danger" *ngIf="autoCompleteControl.invalid && gradeForm.submitted">
+                        Se debe añadir al menos una materia. No puede estar vacío.
+                      </div>
                 </div>
             </div>
 
@@ -64,7 +72,7 @@
 
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <input type="submit" (click)="create()" value="Crear" class="btn btn-secondary">
+                    <input type="submit" (click)="create(gradeForm)" value="Crear" class="btn btn-secondary">
                 </div>
             </div>
 
