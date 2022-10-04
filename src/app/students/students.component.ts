@@ -16,7 +16,7 @@ export class StudentsComponent implements OnInit {
   paginator: any;
   studentSelect: Student;
   constructor(private studentsService: StudentService, 
-    private modalService: ModalService,
+    public modalService: ModalService,
     public authService: AuthService, 
     private activatedRoute: ActivatedRoute) { }
 

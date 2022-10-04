@@ -103,7 +103,7 @@ export class GradesComponent implements OnInit {
       }
       this.gradeService.create(this.grade).subscribe(grade => {
         Swal.fire(this.title, `Las nuevas calificaciones del calendario ${grade.calendar} creadas con éxito`, 'success');
-        this.router.navigate(['/students']);
+        this.router.navigate(['/grades', grade.id]);
       });
     }
   }
